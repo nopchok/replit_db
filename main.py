@@ -9,7 +9,8 @@ from threading import Thread
 
 from replit.database import Database
 
-print(os.environ["REPL_ID"])
+repl_id = os.environ["REPL_ID"]
+print(f"https://{repl_id}.id.repl.co")
 db = Database(os.environ["REPLIT_DB_URL"])
 
 def main():
