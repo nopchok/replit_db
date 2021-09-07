@@ -45,7 +45,7 @@ def main():
         res = {}
         for _ in keys:
           if db.get(_):
-            res[_] = dict(db[_])
+            res[_] = db.get_raw(_)
 
         return {"result": res}
       except:
