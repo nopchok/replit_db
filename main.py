@@ -11,7 +11,6 @@ from replit.database import Database
 
 print(os.environ["REPL_ID"])
 db = Database(os.environ["REPLIT_DB_URL"])
-print(db)
 
 def main():
 
