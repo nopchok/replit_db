@@ -1,0 +1,2 @@
+language = "python3"
+run = "while [ true ]; do killall python; python main.py; done"
