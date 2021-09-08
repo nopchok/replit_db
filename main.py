@@ -6,12 +6,12 @@ import os
 import json
 from threading import Thread
 
-
 from replit.database import Database
 
 repl_id = os.environ["REPL_ID"]
 print(f"https://{repl_id}.id.repl.co")
 db = Database(os.environ["REPLIT_DB_URL"])
+print(db)
 
 def main():
 
@@ -31,8 +31,10 @@ def main():
         d.sort()
         if d == ['data', 'key']:
           key = post_data['key']
-          data = post_data['data']
-          db[key] = data
+          
+          t = {}
+          t['__original__'] = post_data['data']
+          db[key] = t
           return {'result': 'ok'}
         return {}
 
@@ -47,7 +49,22 @@ def main():
           if db.get(_):
             res[_] = json.loads(db.get_raw(_))
 
+            if res[_].get('__original__'):
+              res[_] = res[_].get('__original__')
+
         return {"result": res}
+      except:
+        return {}
+
+    @app.route('/deleteall', methods=['GET'])
+    @cross_origin()
+    def deleteall():
+      try:
+        keys = db.keys()
+        for _key in keys:
+          del db[_key]
+
+        return {"result": 'ok'}
       except:
         return {}
 
